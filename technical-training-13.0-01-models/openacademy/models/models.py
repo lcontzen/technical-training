@@ -6,14 +6,15 @@ class Course(models.Model):
 
     name = fields.Char()
     level = fields.Integer()
+    sessions = fields.Many2many('openacademy.session', 'course')
 
 
 class Person(models.Model):
     _name = 'openacademy.person'
 
     name = fields.Char()
-    teaching = fields.One2Many('openacademy.session')
-    sessions = fields.Many2many('openacademy.session')
+    teaching = fields.One2many('openacademy.session', 'teacher')
+    sessions = fields.Many2many('openacademy.session', 'attendees')
 
 
 class Session(models.Model):
@@ -22,6 +23,6 @@ class Session(models.Model):
     name = fields.Char()
     course = fields.Many2many('openacademy.course')
     teacher = fields.Many2one('openacademy.person', 'teaching')
-    attendees = fields.One2Many('openacademy.person', 'sessions')
+    attendees = fields.One2many('openacademy.person', 'sessions')
     state = fields.Selection([('draft', 'In preparation'), ('wip', 'In progress'), ('archived', 'Archived')])
 
