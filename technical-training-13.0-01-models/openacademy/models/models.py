@@ -21,7 +21,7 @@ class Session(models.Model):
     _name = 'openacademy.session'
 
     name = fields.Char()
-    course = fields.Many2many('openacademy.course')
+    course = fields.Many2many('openacademy.course', ondelete='cascade')
     teacher = fields.Many2one('openacademy.person', 'teaching')
     attendees = fields.One2many('openacademy.person', 'sessions')
     state = fields.Selection([('draft', 'In preparation'), ('wip', 'In progress'), ('archived', 'Archived')])
